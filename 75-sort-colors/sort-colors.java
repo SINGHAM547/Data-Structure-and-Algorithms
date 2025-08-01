@@ -1,31 +1,31 @@
 class Solution {
     public void sortColors(int[] nums) {
-        int n =nums.length;
-        int l = 0;
-        int m= 0;
-        int h = n-1;
+        if(nums==null || nums.length==0){
+            return;
+        }
 
-        while(m<=h){
-            switch(nums[m]){
-                case 0:
-                    swap(nums,l,m);
-                    m++;
-                    l++;
-                    break;
-                case 1:
-                    m++;
-                    break;
-                case 2:
-                    swap(nums,m,h);
-                    h--;
-                    break;
+        List<Integer> zeroes = new ArrayList<>();
+        List<Integer> ones = new ArrayList<>();
+        List<Integer> twos = new ArrayList<>();
+
+        for(int num : nums){
+            if(num==0){
+                zeroes.add(num);
+            }else if(num==1){
+                ones.add(num);
+            }else{
+                twos.add(num);
             }
         }
-        
-    }
-    private void swap(int[] nums, int i, int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
+        int index=0;
+        for(int num:zeroes){
+            nums[index++] = num;
+        }
+        for(int num:ones){
+            nums[index++] = num;
+        }
+        for(int num : twos){
+            nums[index++] = num;
+        }
     }
 }
