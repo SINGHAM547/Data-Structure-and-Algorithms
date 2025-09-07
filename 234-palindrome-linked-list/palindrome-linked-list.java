@@ -8,42 +8,52 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        if(head==null || head.next==null){
+        if (head == null || head.next == null) {
             return true;
         }
+
         ListNode slow = head;
         ListNode fast = head;
-        while(fast.next!=null && fast.next.next != null){
+
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode secondHalfHead = reverse(slow.next);
-        ListNode firstHalfHead = head;
-        ListNode currentSecondHalf = secondHalfHead;
 
-        boolean isPalindrome = true;
-        while(currentSecondHalf != null){
-            if(firstHalfHead.val != currentSecondHalf.val){
-                isPalindrome = false;
-                break;
+        ListNode secondHalfReversed = reverse(slow);
+        ListNode firstHalf = head;
+
+        while (secondHalfReversed != null) {
+            if (firstHalf.val != secondHalfReversed.val) {
+                return false;
             }
-            firstHalfHead = firstHalfHead.next;
-            currentSecondHalf = currentSecondHalf.next;
+            firstHalf = firstHalf.next;
+            secondHalfReversed = secondHalfReversed.next;
         }
-        slow.next = reverse(secondHalfHead);
-        return isPalindrome;
+
+        return true;
     }
 
-    private ListNode reverse(ListNode head){
+    private ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode current = head;
-        while(current!= null){
-            ListNode nextTemp = current.next;
+        while (current != null) {
+            ListNode nextNode = current.next;
             current.next = prev;
             prev = current;
-            current = nextTemp;
+            current = nextNode;
         }
         return prev;
     }
