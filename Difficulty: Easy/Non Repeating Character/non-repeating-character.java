@@ -1,18 +1,18 @@
 class Solution {
     public char nonRepeatingChar(String s) {
-        char ind = '$';
-        HashMap<Character,Integer> map = new HashMap<>();
+        char ans = '$';
+        HashMap <Character,Integer> h = new HashMap<>();
         for(int i=0;i<s.length();i++){
             char c = s.charAt(i);
-            int freq = map.getOrDefault(c,0);
-            map.put(c,(freq+1));
+            int freq = h.getOrDefault(c,0);
+            h.put(c,(freq+1));
         }
-            for(int i=0;i<s.length();i++){
-                if(map.get(s.charAt(i))==1){
-                    ind = s.charAt(i);
-                    break;
-                }
+        for(int i=0;i<s.length();i++){
+            if(h.get(s.charAt(i))==1){
+                ans = s.charAt(i);
+                break;
+            }
         }
-        return ind;
+        return ans;
     }
 }
