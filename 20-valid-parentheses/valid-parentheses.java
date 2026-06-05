@@ -1,19 +1,21 @@
 class Solution {
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        Map<Character,Character> mapping = new HashMap<>();
-        mapping.put(')', '(');
-        mapping.put('}', '{');
-        mapping.put(']', '[');
-        for(char c:s.toCharArray()){
-            if(mapping.containsValue(c)){
-                stack.push(c);
-            }else if (mapping.containsKey(c)){
-                if(stack.isEmpty() || mapping.get(c) != stack.pop()){
-                    return false;
-                }
+        Deque <Character> str = new ArrayDeque<>();
+        for(int i=0;i<s.length();i++){
+            char x=  s.charAt(i);
+            if(x=='('|| x=='{'|| x=='['){
+                str.push(x);
+            }else{
+                if(str.isEmpty()==true) return false;
+                else if (matching(str.peek(),x)==false) return false;
+                else str.pop();
             }
         }
-        return stack.isEmpty();
+        return(str.isEmpty()==true);
+    }
+        boolean matching(char a, char b) {
+        return (a == '(' && b == ')') ||
+               (a == '{' && b == '}') ||
+               (a == '[' && b == ']');
     }
 }
